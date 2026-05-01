@@ -4,6 +4,7 @@
  */
 
 import com.lab.dao.ProductDAO;
+import com.lab.dao.MeritDAO;
 import com.lab.dao.UserDAO;
 import com.lab.model.User;
 import java.io.IOException;
@@ -21,9 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServlet extends HttpServlet {
 
     private UserDAO userDAO;
+    private MeritDAO meritDAO;
+
 
     public void init() {
         userDAO = new UserDAO();
+        meritDAO = new MeritDAO();
     }
 
     /**
@@ -88,34 +92,27 @@ public class LoginServlet extends HttpServlet {
 
             User validUser = userDAO.authenticate(name, pass);
 
+            
+
+
             if (validUser != null) {
-                // SUCCESS: Forward to the account page
-                request.setAttribute("name", validUser.getUsername());
-                request.setAttribute("email", validUser.getEmail());
-                request.setAttribute("accountType", validUser.getRole());
+                // SUCCESS: Forward to the account page & persist in session
+                request.getSession().setAttribute("name", validUser.getFullName());
+                request.getSession().setAttribute("email", validUser.getEmail());
+                request.getSession().setAttribute("accountType", validUser.getRole());
+                request.getSession().setAttribute("userId", validUser.getUserId());
+                request.getSession().setAttribute("totalMerits", meritDAO.getTotalMerits(validUser.getUserId()));
 
-                if (validUser.getRole().equals("STUDENT")) {
-                    request.getRequestDispatcher("Student_Homepage.jsp").forward(request, response);
-                }
 
-                if (validUser.getRole().equals("ADVISOR")) {
-                    request.getRequestDispatcher("Advisor_Homepage.jsp").forward(request, response);
-                }
-
-                if (validUser.getRole().equals("CHAIRPERSON")) {
-                    request.getRequestDispatcher("Chairman_Homepage.jsp").forward(request, response);
-                }
-
-                if (validUser.getRole().equals("HEPA")) {
-                    request.getRequestDispatcher("Hepa_Homepage.jsp").forward(request, response);
-                }
+                // Forward to unified Homepage.jsp
+                request.getRequestDispatcher("Homepage.jsp").forward(request, response);
 
             } else {
                 // FAILURE: Send back to login.jsp with a message
                 request.setAttribute("errorMessage", "Wrong username or password!");
 
                 // Forward back to your login page
-                RequestDispatcher rd = request.getRequestDispatcher("login.html");
+                RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
                 rd.forward(request, response);
             }
 

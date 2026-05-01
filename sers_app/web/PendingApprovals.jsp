@@ -1,0 +1,113 @@
+<%@page import="java.util.List"%>
+<%@page import="com.lab.model.Event"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pending Approvals | SERS Advisor</title>
+    <link href="${pageContext.request.contextPath}/resources/vendor/css/core.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body class="bg-light">
+
+<div class="d-flex" id="wrapper">
+    <jsp:include page="sidebar.jsp" />
+
+    <div id="page-content-wrapper" class="w-100">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm py-3 px-4">
+            <div class="container-fluid">
+                <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-check-circle text-primary me-2"></i> Pending Club Proposals</h4>
+                <a href="Homepage.jsp" class="btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            </div>
+        </nav>
+
+        <div class="container-fluid p-4">
+            <div class="alert alert-info border-0 shadow-sm bg-info-soft text-dark">
+                <i class="fas fa-info-circle me-2 text-primary"></i> As an Advisor, you can review and approve new event proposals submitted by Club Chairpersons. Approving an event authorizes it and makes it visible to the student body.
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-white p-3 border-bottom">
+                            <h5 class="mb-0 fw-bold"><i class="fas fa-clipboard-list me-2"></i> Events Pending Your Review</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="bg-light text-muted small text-uppercase">
+                                        <tr>
+                                            <th class="ps-4">Trx ID</th>
+                                            <th>Proposing Club</th>
+                                            <th>Event Details</th>
+                                            <th>Logistics</th>
+                                            <th class="text-end pe-4">Advisor Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% 
+                                        List<Event> eventList = (List<Event>) request.getAttribute("pendingEvents");
+                                        if(eventList != null && !eventList.isEmpty()) {
+                                            for(Event e : eventList) {
+                                    %>
+                                        <tr class="bg-warning-soft border-start border-warning border-4">
+                                            <td class="ps-4 text-muted fw-bold">#<%= e.getEventId() %></td>
+                                            <td>
+                                                <span class="badge bg-secondary"><i class="fas fa-flag me-1"></i> <%= e.getClubName() %></span>
+                                            </td>
+                                            <td>
+                                                <strong class="text-dark d-block mb-1"><%= e.getEventName() %></strong>
+                                                <small class="text-muted d-block text-truncate" style="max-width: 250px;"><%= e.getDescription() %></small>
+                                                <span class="badge bg-light text-dark border mt-1"><i class="fas fa-bullseye me-1"></i> <%= e.getCriteria() %> | <%= e.getCategory() %></span>
+                                            </td>
+                                            <td>
+                                                <div class="small fw-bold text-dark"><i class="far fa-calendar-alt text-primary me-2"></i><%= e.getDate() %></div>
+                                                <div class="small text-muted"><i class="fas fa-map-marker-alt text-danger me-2"></i><%= e.getVenue() %></div>
+                                                <div class="small text-muted"><i class="fas fa-users text-info me-2"></i><%= e.getQuota() %> Pax Limit</div>
+                                            </td>
+                                            <td class="text-end pe-4">
+                                                <div class="d-flex justify-content-end gap-2">
+                                                    <form action="PendingApprovalsServlet" method="POST" onsubmit="return confirm('APPROVE: Are you sure you want to authorize this event and make it live?');">
+                                                        <input type="hidden" name="eventId" value="<%= e.getEventId() %>">
+                                                        <input type="hidden" name="action" value="approve">
+                                                        <button type="submit" class="btn btn-sm btn-success fw-bold shadow-sm"><i class="fas fa-check me-1"></i> Approve</button>
+                                                    </form>
+                                                    <form action="PendingApprovalsServlet" method="POST" onsubmit="return confirm('REJECT: Are you sure you want to reject this event proposal?');">
+                                                        <input type="hidden" name="eventId" value="<%= e.getEventId() %>">
+                                                        <input type="hidden" name="action" value="reject">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger shadow-sm"><i class="fas fa-times me-1"></i> Reject</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% 
+                                            }
+                                        } else {
+                                    %>
+                                        <tr>
+                                            <td colspan="5" class="text-center py-5 text-muted">
+                                                <i class="fas fa-check-circle fa-3x mb-3 text-success"></i><br>
+                                                You're all caught up! No events pending your approval.
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -4,25 +4,17 @@ import com.lab.model.User;
 import java.sql.*;
 
 public class UserDAO {
-    // Database configuration - Ensure "sers" is your actual database name
-    private String jdbcURL = "jdbc:mysql://localhost:3306/sers";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "";
+    // Database config is now centrally managed by DBConnection
 
     // SQL Queries - Updated to match the SQL table columns
     private static final String SELECT_USER_FOR_LOGIN = "SELECT * FROM users WHERE username = ? AND password = ?";
     private static final String INSERT_USER_SQL = "INSERT INTO users (username, password, email, full_name, role) VALUES (?, ?, ?, ?, ?)";
+    private static final String SELECT_ALL_USERS = "SELECT * FROM users ORDER BY role, full_name";
+    private static final String UPDATE_USER_ROLE_SQL = "UPDATE users SET role = ? WHERE user_id = ?";
 
     // Connection helper method
     protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return connection;
+        return DBConnection.getConnection();
     }
     
     // 1. Authenticate User (For Login)
@@ -68,21 +60,41 @@ public class UserDAO {
         return rowInserted;
     }
 
-    // --- Main Method for Testing ---
-    public static void main(String[] args) {
-        UserDAO testDao = new UserDAO();
-
-        System.out.println("--- Starting Database Connection Test ---");
-
-        // Test Case: Using the sample data we inserted earlier
-        // User: ahmad, Pass: ahmad123
-        System.out.println("\nTest 1: Testing valid login for 'ahmad'...");
-        User validUser = testDao.authenticate("ahmad", "ahmad123");
-
-        if (validUser != null) {
-            System.out.println("[SUCCESS] User found: " + validUser.getFullName() + " | Role: " + validUser.getRole());
-        } else {
-            System.out.println("[FAILED] User not found. Did you run the SQL INSERT commands?");
+    // 3. Select All Users (For HEPA Manage Users Module)
+    public java.util.List<User> selectAllUsers() {
+        java.util.List<User> users = new java.util.ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS)) {
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setFullName(rs.getString("full_name"));
+                user.setRole(rs.getString("role"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return users;
+    }
+
+    // 4. Update User Role (For HEPA)
+    public boolean updateUserRole(int userId, String newRole) {
+        boolean rowUpdated = false;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_ROLE_SQL)) {
+            
+            preparedStatement.setString(1, newRole);
+            preparedStatement.setInt(2, userId);
+
+            rowUpdated = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdated;
     }
 }
