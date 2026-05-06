@@ -70,7 +70,7 @@
                                 </div>
                             </div>
 
-                            <form action="AdvisorClubsServlet" method="POST" class="p-3 bg-warning-soft rounded border border-warning">
+                            <form action="ClubController?action=advisor" method="POST" class="p-3 bg-warning-soft rounded border border-warning">
                                 <input type="hidden" name="action" value="assignChairperson">
                                 <input type="hidden" name="clubId" value="<%= c.getClubId() %>">
                                 

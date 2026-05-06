@@ -91,7 +91,7 @@
                             <i class="fas fa-box-open fa-3x mb-3 text-light"></i>
                             <h6 class="fw-bold">No Registrations Found</h6>
                             <p>You haven't signed up for any events yet. Check out the Event Catalog!</p>
-                            <a href="BrowseEventsServlet" class="btn btn-outline-primary btn-sm"><i class="fas fa-compass me-1"></i> Browse Events</a>
+                            <a href="EventController?action=browse" class="btn btn-outline-primary btn-sm"><i class="fas fa-compass me-1"></i> Browse Events</a>
                         </div>
                     <% } %>
                 </div>

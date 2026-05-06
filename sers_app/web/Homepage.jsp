@@ -36,7 +36,7 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <a href="BrowseEventsServlet" class="text-decoration-none">
+                                        <a href="EventController?action=browse" class="text-decoration-none">
                                             <div
                                                 class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-info-soft">
                                                 <div class="card-body">
@@ -53,7 +53,7 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <a href="MyAttendanceServlet" class="text-decoration-none">
+                                        <a href="AttendanceController?action=myAttendance" class="text-decoration-none">
                                             <div
                                                 class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-success-soft">
                                                 <div class="card-body">
@@ -70,7 +70,7 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-12 mb-3">
-                                        <a href="MeritHistoryServlet" class="text-decoration-none">
+                                        <a href="MeritController?action=meritHistory" class="text-decoration-none">
                                             <div
                                                 class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-primary-soft">
                                                 <div class="card-body">
@@ -146,7 +146,7 @@
                                         </div>
 
                                         <div class="col-lg-4 col-md-6 mb-3">
-                                            <a href="PendingApprovalsServlet" class="text-decoration-none">
+                                            <a href="EventController?action=pending" class="text-decoration-none">
                                                 <div
                                                     class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-info-soft">
                                                     <div class="card-body">
@@ -163,7 +163,7 @@
                                         </div>
 
                                         <div class="col-lg-4 col-md-6 mb-3">
-                                            <a href="GlobalEventsServlet" class="text-decoration-none">
+                                            <a href="EventController?action=global" class="text-decoration-none">
                                                 <div class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-success-soft"
                                                     style="background-color: rgb(255, 255, 107);">
                                                     <div class="card-body">
@@ -180,7 +180,7 @@
                                         </div>
 
                                         <div class="col-lg-4 col-md-6 mb-3">
-                                            <a href="ClubEventsServlet" class="text-decoration-none">
+                                            <a href="EventController?action=clubEvents" class="text-decoration-none">
                                                 <div
                                                     class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-success-soft">
                                                     <div class="card-body">
@@ -197,7 +197,7 @@
                                         </div>
 
                                         <div class="col-lg-4 col-md-12 mb-3">
-                                            <a href="MeritReportsServlet" class="text-decoration-none">
+                                            <a href="MeritController?action=meritReports" class="text-decoration-none">
                                                 <div
                                                     class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-primary-soft">
                                                     <div class="card-body">
@@ -267,7 +267,7 @@
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 mb-3" style="">
-                                    <a href="ManageEventsServlet" class="text-decoration-none">
+                                    <a href="EventController?action=manage" class="text-decoration-none">
                                         <div
                                             class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-info-soft">
                                             <div class="card-body">
@@ -299,7 +299,7 @@
                                     </div> -->
 
                                 <div class="col-lg-4 col-md-12 mb-3 ">
-                                    <a href="MeritHistoryServlet" class="text-decoration-none ">
+                                    <a href="MeritController?action=meritHistory" class="text-decoration-none ">
                                         <div
                                             class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-primary-soft">
                                             <div class="card-body">
@@ -367,7 +367,7 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <a href="ManageUsersServlet" class="text-decoration-none">
+                                        <a href="UserController?action=manage" class="text-decoration-none">
                                             <div
                                                 class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-info-soft">
                                                 <div class="card-body">
@@ -384,7 +384,7 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <a href="ManageClubsServlet" class="text-decoration-none">
+                                        <a href="ClubController?action=manage" class="text-decoration-none">
                                             <div class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-secondary-soft"
                                                 style="background-color: rgb(255, 203, 203);">
                                                 <div class="card-body">
@@ -401,7 +401,7 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <a href="GlobalEventsServlet" class="text-decoration-none">
+                                        <a href="EventController?action=global" class="text-decoration-none">
                                             <div class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-success-soft"
                                                 style="background-color: rgb(255, 255, 107);">
                                                 <div class="card-body">
@@ -420,7 +420,7 @@
 
 
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <a href="DistributeMeritsServlet" class="text-decoration-none">
+                                        <a href="MeritController?action=distributeMerits" class="text-decoration-none">
                                             <div
                                                 class="card h-100 shadow-sm border-0 action-card text-center p-3 bg-success-soft">
                                                 <div class="card-body">

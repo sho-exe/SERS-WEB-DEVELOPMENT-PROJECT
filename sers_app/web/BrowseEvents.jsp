@@ -163,7 +163,7 @@
                                                                         <% String confirmMsg="Register for " +
                                                                             e.getEventName().replace("'", "\\'" ) + "?"
                                                                             ; %>
-                                                                            <form action="BrowseEventsServlet"
+                                                                            <form action="EventController?action=browse"
                                                                                 method="POST" class="m-0"
                                                                                 onsubmit="return confirm('<%= confirmMsg %>');">
                                                                                 <input type="hidden" name="action"

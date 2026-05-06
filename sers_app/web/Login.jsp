@@ -10,7 +10,7 @@
 
     <div class="login-container">
         <h2>SERS Portal</h2>
-        <form action="LoginServlet" method="POST">
+        <form action="AuthController?action=login" method="POST">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="e.g. sho" required>
 

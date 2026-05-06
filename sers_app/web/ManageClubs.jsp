@@ -56,13 +56,13 @@
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100 club-card bg-white rounded-3 p-0 border position-relative">
                         <!-- Tiny Delete Button Form Floating Top Right -->
-                        <form action="ManageClubsServlet" method="POST" class="position-absolute end-0 top-0 m-2" style="z-index: 10;" onsubmit="return confirm('WARNING: Are you absolutely sure you want to permanently delete this club?');">
+                        <form action="ClubController?action=manage" method="POST" class="position-absolute end-0 top-0 m-2" style="z-index: 10;" onsubmit="return confirm('WARNING: Are you absolutely sure you want to permanently delete this club?');">
                             <input type="hidden" name="action" value="deleteClub">
                             <input type="hidden" name="clubId" value="<%= c.getClubId() %>">
                             <button type="submit" class="btn btn-sm btn-outline-danger border-0"><i class="fas fa-trash-alt"></i></button>
                         </form>
 
-                        <form action="ManageClubsServlet" method="POST" class="h-100 d-flex flex-column">
+                        <form action="ClubController?action=manage" method="POST" class="h-100 d-flex flex-column">
                             <input type="hidden" name="action" value="updateClub">
                             <input type="hidden" name="clubId" value="<%= c.getClubId() %>">
                             
@@ -135,7 +135,7 @@
                 <h5 class="modal-title fw-bold"><i class="fas fa-plus-circle me-2"></i> Register New Club</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="ManageClubsServlet" method="POST">
+            <form action="ClubController?action=manage" method="POST">
                 <div class="modal-body bg-light p-4">
                     <input type="hidden" name="action" value="createClub">
                     

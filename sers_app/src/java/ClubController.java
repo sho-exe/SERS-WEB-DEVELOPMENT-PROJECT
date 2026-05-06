@@ -1,0 +1,121 @@
+import com.lab.dao.ClubDAO;
+import com.lab.dao.UserDAO;
+import com.lab.model.Club;
+import com.lab.model.User;
+
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebServlet("/ClubController")
+public class ClubController extends HttpServlet {
+
+    private ClubDAO clubDAO;
+    private UserDAO userDAO;
+
+    @Override
+    public void init() {
+        clubDAO = new ClubDAO();
+        userDAO = new UserDAO();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            
+        HttpSession session = request.getSession();
+        if(session.getAttribute("userId") == null) {
+            response.sendRedirect("AuthController?action=logout");
+            return;
+        }
+
+        String action = request.getParameter("action");
+        String accountType = (String) session.getAttribute("accountType");
+
+        if ("manage".equals(action) && "HEPA".equals(accountType)) {
+            List<Club> clubList = clubDAO.selectAllClubs();
+            List<User> userList = userDAO.selectAllUsers();
+            
+            request.setAttribute("clubList", clubList);
+            request.setAttribute("userList", userList);
+            request.getRequestDispatcher("ManageClubs.jsp").forward(request, response);
+            
+        } else if ("advisor".equals(action) && "ADVISOR".equals(accountType)) {
+            int advisorId = (int) session.getAttribute("userId");
+            List<Club> myClubs = clubDAO.selectClubsByAdvisor(advisorId);
+            List<User> userList = userDAO.selectAllUsers();
+            
+            request.setAttribute("clubList", myClubs);
+            request.setAttribute("userList", userList);
+            request.getRequestDispatcher("AdvisorClubs.jsp").forward(request, response);
+            
+        } else {
+            response.sendRedirect("AuthController?action=logout");
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            
+        HttpSession session = request.getSession();
+        if(session.getAttribute("userId") == null) {
+            response.sendRedirect("AuthController?action=logout");
+            return;
+        }
+
+        String action = request.getParameter("action");
+        String accountType = (String) session.getAttribute("accountType");
+
+        // HEPA Actions
+        if ("HEPA".equals(accountType)) {
+            if ("createClub".equals(action)) {
+                String name = request.getParameter("clubName");
+                String desc = request.getParameter("description");
+                clubDAO.insertClub(new Club(name, desc));
+            } 
+            else if ("updateClub".equals(action) || "assignRoles".equals(action)) {
+                int clubId = Integer.parseInt(request.getParameter("clubId"));
+                String name = request.getParameter("clubName");
+                String desc = request.getParameter("description");
+                
+                String advStr = request.getParameter("advisorId");
+                String chairStr = request.getParameter("chairpersonId");
+                Integer advisorId = (advStr != null && !advStr.trim().isEmpty()) ? Integer.parseInt(advStr) : null;
+                Integer chairpersonId = (chairStr != null && !chairStr.trim().isEmpty()) ? Integer.parseInt(chairStr) : null;
+                
+                if (name == null || name.trim().isEmpty()) name = "Unnamed Club";
+                clubDAO.updateClub(clubId, name, desc, advisorId, chairpersonId);
+            }
+            else if ("deleteClub".equals(action)) {
+                int clubId = Integer.parseInt(request.getParameter("clubId"));
+                clubDAO.deleteClub(clubId);
+            }
+            response.sendRedirect("ClubController?action=manage");
+        } 
+        
+        // ADVISOR Actions
+        else if ("ADVISOR".equals(accountType)) {
+            if ("assignChairperson".equals(action)) {
+                int clubId = Integer.parseInt(request.getParameter("clubId"));
+                String chairStr = request.getParameter("chairpersonId");
+                Integer chairpersonId = (chairStr != null && !chairStr.trim().isEmpty()) ? Integer.parseInt(chairStr) : null;
+                
+                int advisorId = (int) session.getAttribute("userId");
+                Club targetClub = clubDAO.selectAllClubs().stream().filter(c -> c.getClubId() == clubId).findFirst().orElse(null);
+                
+                if(targetClub != null && targetClub.getAdvisorId() != null && targetClub.getAdvisorId() == advisorId) {
+                    clubDAO.updateClub(clubId, targetClub.getClubName(), targetClub.getDescription(), advisorId, chairpersonId);
+                }
+            }
+            response.sendRedirect("ClubController?action=advisor");
+        } else {
+            response.sendRedirect("AuthController?action=logout");
+        }
+    }
+}

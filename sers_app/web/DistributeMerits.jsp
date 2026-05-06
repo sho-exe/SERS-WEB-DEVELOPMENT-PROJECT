@@ -125,7 +125,7 @@
                                                                                         Points Sent</button>
                                                                                     <% } else { %>
                                                                                         <form
-                                                                                            action="DistributeMeritsServlet"
+                                                                                            action="MeritController?action=distributeMerits"
                                                                                             method="POST"
                                                                                             class="d-inline-flex gap-2 align-items-center"
                                                                                             onsubmit="return confirm('WARNING: You are about to mass distribute points to all physically verified attendees for <%= e.getEventName() %>. This is immutable. Proceed?'

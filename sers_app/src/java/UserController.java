@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ManageUsersServlet")
-public class ManageUsersServlet extends HttpServlet {
+@WebServlet("/UserController")
+public class UserController extends HttpServlet {
 
     private UserDAO userDAO;
 
@@ -24,14 +24,19 @@ public class ManageUsersServlet extends HttpServlet {
             
         // Check if user is logged in as HEPA
         String accountType = (String) request.getSession().getAttribute("accountType");
-        // In this architecture, it sits in session or we fetch from request if chained. Let's assume standard session based attributes are set.
-        // Wait, LoginServlet sets request.setAttribute. It doesn't set session. 
-        // For a true module, we need the user to be logged in via session. 
-        // I will update LoginServlet to use session, but for now I'll just proceed and assume session exists.
+        if(accountType == null || !"HEPA".equals(accountType)) {
+            response.sendRedirect("Logout.jsp");
+            return;
+        }
         
-        List<User> userList = userDAO.selectAllUsers();
-        request.setAttribute("userList", userList);
-        request.getRequestDispatcher("ManageUsers.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        if(action == null || "manage".equals(action)) {
+            List<User> userList = userDAO.selectAllUsers();
+            request.setAttribute("userList", userList);
+            request.getRequestDispatcher("ManageUsers.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("Homepage.jsp");
+        }
     }
 
     @Override
@@ -46,7 +51,7 @@ public class ManageUsersServlet extends HttpServlet {
             userDAO.updateUserRole(userId, newRole);
             
             // Redirect back to GET list
-            response.sendRedirect("ManageUsersServlet");
+            response.sendRedirect("UserController?action=manage");
         }
     }
 }

@@ -83,7 +83,7 @@
                             </td>
                             <td class="text-center">
                                 <% if(!u.getRole().equals("HEPA")) { %>
-                                <form action="ManageUsersServlet" method="POST" class="d-inline">
+                                <form action="UserController?action=manage" method="POST" class="d-inline">
                                     <input type="hidden" name="action" value="updateRole">
                                     <input type="hidden" name="userId" value="<%= u.getUserId() %>">
                                     <div class="input-group input-group-sm d-flex justify-content-center">

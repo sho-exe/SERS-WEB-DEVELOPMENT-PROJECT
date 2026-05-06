@@ -71,12 +71,12 @@
                                             </td>
                                             <td class="text-end pe-4">
                                                 <div class="d-flex justify-content-end gap-2">
-                                                    <form action="PendingApprovalsServlet" method="POST" onsubmit="return confirm('APPROVE: Are you sure you want to authorize this event and make it live?');">
+                                                    <form action="EventController?action=pending" method="POST" onsubmit="return confirm('APPROVE: Are you sure you want to authorize this event and make it live?');">
                                                         <input type="hidden" name="eventId" value="<%= e.getEventId() %>">
                                                         <input type="hidden" name="action" value="approve">
                                                         <button type="submit" class="btn btn-sm btn-success fw-bold shadow-sm"><i class="fas fa-check me-1"></i> Approve</button>
                                                     </form>
-                                                    <form action="PendingApprovalsServlet" method="POST" onsubmit="return confirm('REJECT: Are you sure you want to reject this event proposal?');">
+                                                    <form action="EventController?action=pending" method="POST" onsubmit="return confirm('REJECT: Are you sure you want to reject this event proposal?');">
                                                         <input type="hidden" name="eventId" value="<%= e.getEventId() %>">
                                                         <input type="hidden" name="action" value="reject">
                                                         <button type="submit" class="btn btn-sm btn-outline-danger shadow-sm"><i class="fas fa-times me-1"></i> Reject</button>

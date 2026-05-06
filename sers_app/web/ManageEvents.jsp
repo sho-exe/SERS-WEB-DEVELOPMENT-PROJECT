@@ -123,7 +123,7 @@
                                                                             e.getEventId() %></span>
 
                                                                     <% if("APPROVED".equals(e.getStatus())) { %>
-                                                                        <a href="ManageAttendancesServlet?eventId=<%= e.getEventId() %>"
+                                                                        <a href="AttendanceController?action=manageAttendances&eventId=<%= e.getEventId() %>"
                                                                             class="btn btn-sm btn-outline-primary shadow-sm fw-bold w-100">
                                                                             <i class="fas fa-users me-1"></i>
                                                                             Attendances
@@ -153,7 +153,7 @@
                                                         <button type="button" class="btn-close btn-close-white"
                                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <form action="ManageEventsServlet" method="POST">
+                                                    <form action="EventController?action=manage" method="POST">
                                                         <div class="modal-body p-4 bg-light">
                                                             <input type="hidden" name="action" value="proposeEvent">
                                                             <input type="hidden" name="clubId"

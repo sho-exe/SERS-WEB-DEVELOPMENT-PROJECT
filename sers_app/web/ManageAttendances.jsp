@@ -95,13 +95,13 @@
                                     <td class="text-end pe-4">
                                         <% if(isPending) { %>
                                             <div class="d-flex justify-content-end gap-2">
-                                                <form action="ManageAttendancesServlet" method="POST" onsubmit="return confirm('Please confirm <%= a.getStudentName() %> is physically present.');">
+                                                <form action="AttendanceController?action=manageAttendances" method="POST" onsubmit="return confirm('Please confirm <%= a.getStudentName() %> is physically present.');">
                                                     <input type="hidden" name="eventId" value="<%= targetEvent.getEventId() %>">
                                                     <input type="hidden" name="attendanceId" value="<%= a.getAttendanceId() %>">
                                                     <input type="hidden" name="action" value="approve">
                                                     <button type="submit" class="btn btn-sm btn-success fw-bold shadow-sm"><i class="fas fa-check me-1"></i> Verify</button>
                                                 </form>
-                                                <form action="ManageAttendancesServlet" method="POST" onsubmit="return confirm('Are you sure you want to mark <%= a.getStudentName() %> as missing?');">
+                                                <form action="AttendanceController?action=manageAttendances" method="POST" onsubmit="return confirm('Are you sure you want to mark <%= a.getStudentName() %> as missing?');">
                                                     <input type="hidden" name="eventId" value="<%= targetEvent.getEventId() %>">
                                                     <input type="hidden" name="attendanceId" value="<%= a.getAttendanceId() %>">
                                                     <input type="hidden" name="action" value="reject">
