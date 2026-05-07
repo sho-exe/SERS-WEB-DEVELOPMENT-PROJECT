@@ -66,7 +66,7 @@
 
                                 <ul class="menu-inner py-1">
                                     <% if ("STUDENT".equals(role)) { %>
-                                        <li class="menu-item active">
+                                        <li class="menu-item">
                                             <a href="Homepage_sneat.jsp" class="menu-link">
                                                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                                                 <div data-i18n="Dashboard">Dashboard</div>
@@ -91,7 +91,7 @@
                                             </a>
                                         </li>
                                         <% } else if ("ADVISOR".equals(role)) { %>
-                                            <li class="menu-item active">
+                                            <li class="menu-item">
                                                 <a href="Homepage_sneat.jsp" class="menu-link">
                                                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                                                     <div data-i18n="Advisor Dashboard">Advisor Dashboard</div>
@@ -122,7 +122,7 @@
                                                 </a>
                                             </li>
                                             <% } else if ("CHAIRPERSON".equals(role)) { %>
-                                                <li class="menu-item active">
+                                                <li class="menu-item">
                                                     <a href="Homepage_sneat.jsp" class="menu-link">
                                                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                                                         <div data-i18n="Dashboard">Dashboard</div>
