@@ -9,7 +9,6 @@ These inefficiencies are low student participation, ghost registrations where st
 </div>
 
 ## System Modules
-
 | No. | Module | Description | Member |
 | :---: | :--- | :--- | :---: |
 | 1 | **Manage Users** | <ul><li>Handles user login.</li><li>Role-based access control for all four user types.</li><li>Admin HEPA manages user profiles and role assignments.</li></ul> | Shukri [Leader] |
@@ -20,18 +19,11 @@ These inefficiencies are low student participation, ghost registrations where st
 | 6 | **Manage Merits** | **Core module.**<ul><li>Calculates and assigns merit points based on criteria.</li><li>Viewable by students and Advisors.</li><li>Includes merit summary across all semesters.</li></ul> | Adly |
 
 ## Group Members
-
 | No. | Name | Matric No. |
 | :---: | :--- | :---: |
 | 1 | MUHAMMAD IQBAL HAIKAL BIN MOHD ZAFERI| S75635 |
 | 2 | RAJA AHMAD SHUKRI BIN RAJA AHMAD KAHAR | S74644 |
 | 3 | ADLY AZAMIN BIN AZMAN | S76094 |
-
-## Features
-* **Backend:** Secure and efficient request handling using pure Java Servlets.
-* **Frontend:** Dynamic views rendered with JSP.
-* **Database:** Relational data management powered by MySQL.
-* **UI/UX:** Fully responsive, modern admin interface utilizing the Sneat Bootstrap 5 template.
 
 ## Tech Stack
 * **Language:** Java (JDK 11+)
@@ -49,7 +41,16 @@ Before you begin, ensure you have the following installed:
 * [MySQL Server](https://dev.mysql.com/downloads/mysql/)
 * Your preferred Java IDE (NetBeans, Eclipse, or IntelliJ IDEA)
 
-### Installation & Setup
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git](https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git)
+## Installation & Setup
+
+Open your terminal and run the following commands:
+
+```bash
+# 1. Create a new folder for the project
+mkdir eventzone
+
+# 2. Navigate into that folder
+cd eventzone
+
+# 3. Clone the repository
+git clone [https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git](https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git)
