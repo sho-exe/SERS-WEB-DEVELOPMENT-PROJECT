@@ -11,16 +11,18 @@
                     <a href="Homepage.jsp" class="list-group-item list-group-item-action bg-dark text-white">
                         <i class="fas fa-home me-2"></i> Dashboard
                     </a>
-                    <a href="BrowseEventsServlet" class="list-group-item list-group-item-action bg-dark text-white">
+                    <a href="events?action=browse" class="list-group-item list-group-item-action bg-dark text-white">
                         <i class="fas fa-search me-2"></i> Explore Events
                     </a>
-                    <a href="MyAttendanceServlet" class="list-group-item list-group-item-action bg-dark text-white">
+                    <a href="attendances?action=myAttendance"
+                        class="list-group-item list-group-item-action bg-dark text-white">
                         <i class="fas fa-clipboard-list me-2"></i> My Registrations
                     </a>
-                    <a href="MeritHistoryServlet" class="list-group-item list-group-item-action bg-dark text-white">
+                    <a href="merits?action=meritHistory"
+                        class="list-group-item list-group-item-action bg-dark text-white">
                         <i class="fas fa-medal me-2"></i> Merit Transcript
                     </a>
-                    <a href="Logout.jsp" class="list-group-item list-group-item-action bg-dark text-danger">
+                    <a href="auths?action=logout" class="list-group-item list-group-item-action bg-dark text-danger">
                         <i class="fas fa-sign-out-alt me-2"></i> Logout
                     </a>
                 </div>
@@ -35,19 +37,24 @@
                         <a href="Homepage.jsp" class="list-group-item list-group-item-action bg-dark text-white">
                             <i class="fas fa-home me-2"></i> Advisor Dashboard
                         </a>
-                        <a href="AdvisorClubsServlet" class="list-group-item list-group-item-action bg-dark text-white">
+                        <a href="clubs?action=advisor"
+                            class="list-group-item list-group-item-action bg-dark text-white">
                             <i class="fas fa-flag-checkered me-2"></i> My Managed Clubs
                         </a>
-                        <a href="PendingApprovalsServlet" class="list-group-item list-group-item-action bg-dark text-white">
+                        <a href="events?action=pending"
+                            class="list-group-item list-group-item-action bg-dark text-white">
                             <i class="fas fa-check-circle me-2"></i> Pending Approvals
                         </a>
-                        <a href="ClubEventsServlet" class="list-group-item list-group-item-action bg-dark text-white">
+                        <a href="events?action=clubEvents"
+                            class="list-group-item list-group-item-action bg-dark text-white">
                             <i class="fas fa-history me-2"></i> Club Events History
                         </a>
-                        <a href="MeritReportsServlet" class="list-group-item list-group-item-action bg-dark text-white">
+                        <a href="merits?action=meritReports"
+                            class="list-group-item list-group-item-action bg-dark text-white">
                             <i class="fas fa-chart-bar me-2"></i> Merit Reports
                         </a>
-                        <a href="Logout.jsp" class="list-group-item list-group-item-action bg-dark text-danger">
+                        <a href="auths?action=logout"
+                            class="list-group-item list-group-item-action bg-dark text-danger">
                             <i class="fas fa-sign-out-alt me-2"></i> Logout
                         </a>
                     </div>
@@ -62,7 +69,7 @@
                             <a href="Homepage.jsp" class="list-group-item list-group-item-action bg-dark text-white">
                                 <i class="fas fa-home me-2"></i> Dashboard
                             </a>
-                            <a href="ManageEventsServlet"
+                            <a href="events?action=manage"
                                 class="list-group-item list-group-item-action bg-dark text-white">
                                 <i class="fas fa-calendar-plus me-2"></i> Manage Events
                             </a>
@@ -70,7 +77,8 @@
                                 class="list-group-item list-group-item-action bg-dark text-white">
                                 <i class="fas fa-user-edit me-2"></i> Update Profile
                             </a>
-                            <a href="Logout.jsp" class="list-group-item list-group-item-action bg-dark text-danger">
+                            <a href="auths?action=logout"
+                                class="list-group-item list-group-item-action bg-dark text-danger">
                                 <i class="fas fa-sign-out-alt me-2"></i> Logout
                             </a>
                         </div>
@@ -86,23 +94,24 @@
                                     class="list-group-item list-group-item-action bg-dark text-white">
                                     <i class="fas fa-home me-2"></i> Admin Dashboard
                                 </a>
-                                <a href="ManageUsersServlet"
+                                <a href="users?action=manage"
                                     class="list-group-item list-group-item-action bg-dark text-white">
                                     <i class="fas fa-users me-2"></i> Manage Users
                                 </a>
-                                <a href="ManageClubsServlet"
+                                <a href="clubs?action=manage"
                                     class="list-group-item list-group-item-action bg-dark text-white">
                                     <i class="fas fa-flag me-2"></i> Manage Clubs
                                 </a>
-                                <a href="GlobalEventsServlet"
+                                <a href="events?action=global"
                                     class="list-group-item list-group-item-action bg-dark text-white">
                                     <i class="fas fa-globe me-2"></i> System-Wide Events
                                 </a>
-                                <a href="DistributeMeritsServlet"
+                                <a href="merits?action=distributeMerits"
                                     class="list-group-item list-group-item-action bg-dark text-white">
                                     <i class="fas fa-award me-2"></i> Distribute Merits
                                 </a>
-                                <a href="Logout.jsp" class="list-group-item list-group-item-action bg-dark text-danger">
+                                <a href="auths?action=logout"
+                                    class="list-group-item list-group-item-action bg-dark text-danger">
                                     <i class="fas fa-sign-out-alt me-2"></i> Logout
                                 </a>
                             </div>

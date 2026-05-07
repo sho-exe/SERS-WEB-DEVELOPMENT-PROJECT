@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/ClubController")
+@WebServlet("/clubs")
 public class ClubController extends HttpServlet {
 
     private ClubDAO clubDAO;
@@ -27,10 +27,10 @@ public class ClubController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         HttpSession session = request.getSession();
-        if(session.getAttribute("userId") == null) {
-            response.sendRedirect("AuthController?action=logout");
+        if (session.getAttribute("userId") == null) {
+            response.sendRedirect("auths?action=logout");
             return;
         }
 
@@ -40,32 +40,32 @@ public class ClubController extends HttpServlet {
         if ("manage".equals(action) && "HEPA".equals(accountType)) {
             List<Club> clubList = clubDAO.selectAllClubs();
             List<User> userList = userDAO.selectAllUsers();
-            
+
             request.setAttribute("clubList", clubList);
             request.setAttribute("userList", userList);
             request.getRequestDispatcher("ManageClubs.jsp").forward(request, response);
-            
+
         } else if ("advisor".equals(action) && "ADVISOR".equals(accountType)) {
             int advisorId = (int) session.getAttribute("userId");
             List<Club> myClubs = clubDAO.selectClubsByAdvisor(advisorId);
             List<User> userList = userDAO.selectAllUsers();
-            
+
             request.setAttribute("clubList", myClubs);
             request.setAttribute("userList", userList);
             request.getRequestDispatcher("AdvisorClubs.jsp").forward(request, response);
-            
+
         } else {
-            response.sendRedirect("AuthController?action=logout");
+            response.sendRedirect("auths?action=logout");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         HttpSession session = request.getSession();
-        if(session.getAttribute("userId") == null) {
-            response.sendRedirect("AuthController?action=logout");
+        if (session.getAttribute("userId") == null) {
+            response.sendRedirect("auths?action=logout");
             return;
         }
 
@@ -78,44 +78,47 @@ public class ClubController extends HttpServlet {
                 String name = request.getParameter("clubName");
                 String desc = request.getParameter("description");
                 clubDAO.insertClub(new Club(name, desc));
-            } 
-            else if ("updateClub".equals(action) || "assignRoles".equals(action)) {
+            } else if ("updateClub".equals(action) || "assignRoles".equals(action)) {
                 int clubId = Integer.parseInt(request.getParameter("clubId"));
                 String name = request.getParameter("clubName");
                 String desc = request.getParameter("description");
-                
+
                 String advStr = request.getParameter("advisorId");
                 String chairStr = request.getParameter("chairpersonId");
                 Integer advisorId = (advStr != null && !advStr.trim().isEmpty()) ? Integer.parseInt(advStr) : null;
-                Integer chairpersonId = (chairStr != null && !chairStr.trim().isEmpty()) ? Integer.parseInt(chairStr) : null;
-                
-                if (name == null || name.trim().isEmpty()) name = "Unnamed Club";
+                Integer chairpersonId = (chairStr != null && !chairStr.trim().isEmpty()) ? Integer.parseInt(chairStr)
+                        : null;
+
+                if (name == null || name.trim().isEmpty())
+                    name = "Unnamed Club";
                 clubDAO.updateClub(clubId, name, desc, advisorId, chairpersonId);
-            }
-            else if ("deleteClub".equals(action)) {
+            } else if ("deleteClub".equals(action)) {
                 int clubId = Integer.parseInt(request.getParameter("clubId"));
                 clubDAO.deleteClub(clubId);
             }
             response.sendRedirect("ClubController?action=manage");
-        } 
-        
+        }
+
         // ADVISOR Actions
         else if ("ADVISOR".equals(accountType)) {
             if ("assignChairperson".equals(action)) {
                 int clubId = Integer.parseInt(request.getParameter("clubId"));
                 String chairStr = request.getParameter("chairpersonId");
-                Integer chairpersonId = (chairStr != null && !chairStr.trim().isEmpty()) ? Integer.parseInt(chairStr) : null;
-                
+                Integer chairpersonId = (chairStr != null && !chairStr.trim().isEmpty()) ? Integer.parseInt(chairStr)
+                        : null;
+
                 int advisorId = (int) session.getAttribute("userId");
-                Club targetClub = clubDAO.selectAllClubs().stream().filter(c -> c.getClubId() == clubId).findFirst().orElse(null);
-                
-                if(targetClub != null && targetClub.getAdvisorId() != null && targetClub.getAdvisorId() == advisorId) {
-                    clubDAO.updateClub(clubId, targetClub.getClubName(), targetClub.getDescription(), advisorId, chairpersonId);
+                Club targetClub = clubDAO.selectAllClubs().stream().filter(c -> c.getClubId() == clubId).findFirst()
+                        .orElse(null);
+
+                if (targetClub != null && targetClub.getAdvisorId() != null && targetClub.getAdvisorId() == advisorId) {
+                    clubDAO.updateClub(clubId, targetClub.getClubName(), targetClub.getDescription(), advisorId,
+                            chairpersonId);
                 }
             }
             response.sendRedirect("ClubController?action=advisor");
         } else {
-            response.sendRedirect("AuthController?action=logout");
+            response.sendRedirect("auths?action=logout");
         }
     }
 }

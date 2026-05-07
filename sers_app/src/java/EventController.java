@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/EventController")
+@WebServlet("/events")
 public class EventController extends HttpServlet {
 
     private EventDAO eventDAO;
@@ -30,10 +30,10 @@ public class EventController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         HttpSession session = request.getSession();
-        if(session.getAttribute("userId") == null) {
-            response.sendRedirect("AuthController?action=logout");
+        if (session.getAttribute("userId") == null) {
+            response.sendRedirect("auths?action=logout");
             return;
         }
 
@@ -49,83 +49,86 @@ public class EventController extends HttpServlet {
                 request.setAttribute("eventList", myEvents);
             }
             request.getRequestDispatcher("ManageEvents.jsp").forward(request, response);
-            
+
         } else if ("pending".equals(action) && "ADVISOR".equals(accountType)) {
             List<Event> pendingEvents = eventDAO.selectPendingEventsByAdvisor(userId);
             request.setAttribute("pendingEvents", pendingEvents);
             request.getRequestDispatcher("PendingApprovals.jsp").forward(request, response);
-            
+
         } else if ("global".equals(action) && ("HEPA".equals(accountType) || "ADVISOR".equals(accountType))) {
             List<Event> globalEvents = eventDAO.selectAllEvents();
             request.setAttribute("globalEvents", globalEvents);
             request.getRequestDispatcher("GlobalEvents.jsp").forward(request, response);
-            
+
         } else if ("clubEvents".equals(action) && "ADVISOR".equals(accountType)) {
             List<Event> clubEvents = eventDAO.selectAllEventsByAdvisor(userId);
             request.setAttribute("clubEvents", clubEvents);
             request.getRequestDispatcher("ClubEvents.jsp").forward(request, response);
-            
+
         } else if ("browse".equals(action) && "STUDENT".equals(accountType)) {
             List<Event> approvedEvents = eventDAO.selectApprovedEvents();
-            for(Event e : approvedEvents) {
+            for (Event e : approvedEvents) {
                 e.setAlreadyRegistered(regDAO.isStudentRegistered(e.getEventId(), userId));
                 e.setCurrentEnrollments(regDAO.getEnrollmentCount(e.getEventId()));
             }
             request.setAttribute("eventCatalog", approvedEvents);
             request.getRequestDispatcher("BrowseEvents.jsp").forward(request, response);
-            
+
         } else {
-            response.sendRedirect("AuthController?action=logout");
+            response.sendRedirect("auths?action=logout");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         HttpSession session = request.getSession();
-        if(session.getAttribute("userId") == null) {
-            response.sendRedirect("AuthController?action=logout");
+        if (session.getAttribute("userId") == null) {
+            response.sendRedirect("auths?action=logout");
             return;
         }
 
         String action = request.getParameter("action");
         String accountType = (String) session.getAttribute("accountType");
-        
+
         if ("proposeEvent".equals(action) && "CHAIRPERSON".equals(accountType)) {
             Event newEvent = new Event();
             newEvent.setEventName(request.getParameter("eventName"));
             newEvent.setDescription(request.getParameter("description"));
             newEvent.setDate(Date.valueOf(request.getParameter("date")));
             newEvent.setVenue(request.getParameter("venue"));
-            newEvent.setQuota(request.getParameter("quota") != null && !request.getParameter("quota").isEmpty() ? Integer.parseInt(request.getParameter("quota")) : 0);
+            newEvent.setQuota(request.getParameter("quota") != null && !request.getParameter("quota").isEmpty()
+                    ? Integer.parseInt(request.getParameter("quota"))
+                    : 0);
             newEvent.setCriteria(request.getParameter("criteria"));
             newEvent.setCategory(request.getParameter("kategori"));
             newEvent.setClubId(Integer.parseInt(request.getParameter("clubId")));
             eventDAO.insertEvent(newEvent);
             response.sendRedirect("EventController?action=manage");
-            
-        } else if (("approve".equals(action) || "reject".equals(action)) && ("ADVISOR".equals(accountType) || "HEPA".equals(accountType))) {
+
+        } else if (("approve".equals(action) || "reject".equals(action))
+                && ("ADVISOR".equals(accountType) || "HEPA".equals(accountType))) {
             int eventId = Integer.parseInt(request.getParameter("eventId"));
             String status = "approve".equals(action) ? "APPROVED" : "REJECTED";
             eventDAO.updateEventStatus(eventId, status);
-            
+
             // Redirect back to context
             String referer = request.getHeader("referer");
-            if(referer != null && referer.contains("global")) {
+            if (referer != null && referer.contains("global")) {
                 response.sendRedirect("EventController?action=global");
             } else {
                 response.sendRedirect("EventController?action=pending");
             }
-            
+
         } else if ("register".equals(action) && "STUDENT".equals(accountType)) {
             int eventId = Integer.parseInt(request.getParameter("eventId"));
             int studentId = (int) session.getAttribute("userId");
             regDAO.registerStudent(eventId, studentId);
             response.sendRedirect("EventController?action=browse");
-            
+
         } else {
-            response.sendRedirect("AuthController?action=logout");
+            response.sendRedirect("auths?action=logout");
         }
     }
 }

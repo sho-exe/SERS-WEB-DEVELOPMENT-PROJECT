@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/MeritController")
+@WebServlet("/merits")
 public class MeritController extends HttpServlet {
 
     private EventDAO eventDAO;
@@ -26,10 +26,10 @@ public class MeritController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         HttpSession session = request.getSession();
-        if(session.getAttribute("userId") == null) {
-            response.sendRedirect("AuthController?action=logout");
+        if (session.getAttribute("userId") == null) {
+            response.sendRedirect("auths?action=logout");
             return;
         }
 
@@ -42,48 +42,49 @@ public class MeritController extends HttpServlet {
             request.setAttribute("approvedEvents", approvedEvents);
             request.setAttribute("meritDAO", meritDAO);
             request.getRequestDispatcher("DistributeMerits.jsp").forward(request, response);
-            
-        } else if ("meritHistory".equals(action) && ("STUDENT".equals(accountType) || "CHAIRPERSON".equals(accountType))) {
+
+        } else if ("meritHistory".equals(action)
+                && ("STUDENT".equals(accountType) || "CHAIRPERSON".equals(accountType))) {
             int totalMerits = meritDAO.getTotalMerits(userId);
             List<Map<String, Object>> meritHistory = meritDAO.getMeritHistoryForUser(userId);
             request.setAttribute("totalMerits", totalMerits);
             request.setAttribute("meritHistory", meritHistory);
             request.getRequestDispatcher("MeritHistory.jsp").forward(request, response);
-            
+
         } else if ("meritReports".equals(action) && "ADVISOR".equals(accountType)) {
             Map<String, Integer> metrics = meritDAO.getAdvisorMetrics(userId);
             List<Map<String, Object>> topStudents = meritDAO.getTopStudentsForAdvisor(userId);
             request.setAttribute("metrics", metrics);
             request.setAttribute("topStudents", topStudents);
             request.getRequestDispatcher("MeritReports.jsp").forward(request, response);
-            
+
         } else {
-            response.sendRedirect("AuthController?action=logout");
+            response.sendRedirect("auths?action=logout");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         HttpSession session = request.getSession();
-        if(session.getAttribute("userId") == null) {
-            response.sendRedirect("AuthController?action=logout");
+        if (session.getAttribute("userId") == null) {
+            response.sendRedirect("auths?action=logout");
             return;
         }
-        
+
         String action = request.getParameter("action");
         String accountType = (String) session.getAttribute("accountType");
-        
+
         if ("distribute".equals(action) && "HEPA".equals(accountType)) {
             int eventId = Integer.parseInt(request.getParameter("eventId"));
             int points = Integer.parseInt(request.getParameter("points"));
-            
+
             meritDAO.distributeMerits(eventId, points);
             response.sendRedirect("MeritController?action=distributeMerits&success=true");
-            
+
         } else {
-            response.sendRedirect("AuthController?action=logout");
+            response.sendRedirect("auths?action=logout");
         }
     }
 }
