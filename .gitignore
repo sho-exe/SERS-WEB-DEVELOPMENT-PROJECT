@@ -1,1 +1,26 @@
-/sers_app/dist/
+
+# ==========================================
+# Java & IDE Ignore File
+# ==========================================
+
+# 1. Compiled Java class files (The messy computer code)
+*.class
+
+# 2. Build and output folders (Your IDE regenerates these)
+build/
+target/
+dist/
+out/
+
+# 3. Log files
+*.log
+
+# 4. NetBeans Specific (Keeps the project structure, blocks personal settings)
+nbproject/private/
+nbbuild/
+nbdist/
+.nb-gradle/
+
+# 5. OS Generated Files (Stops Mac/Windows junk files)
+.DS_Store
+Thumbs.db
