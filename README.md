@@ -47,7 +47,5 @@ Open your terminal and run the following commands:
 
 ```bash
 mkdir eventzone
-
 cd eventzone
-
-git clone [https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git](https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git)
+git clone https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git
