@@ -8,6 +8,17 @@ The system is designed to serve the various clubs operating under this faculty, 
 These inefficiencies are low student participation, ghost registrations where students register but fail to attend, and overbooking where the number of registered participants exceeds the venue capacity.
 </div>
 
+## System Modules
+
+| No. | Module | Description | Member |
+| :---: | :--- | :--- | :---: |
+| 1 | **Manage Users** | <ul><li>Handles user login.</li><li>Role-based access control for all four user types.</li><li>Admin HEPA manages user profiles and role assignments.</li></ul> | Shukri [Leader] |
+| 2 | **Manage Clubs** | <ul><li>Manages club creation.</li><li>Assigns Club Advisors and Chairpersons.</li><li>Scoped to one specific faculty.</li></ul> | Shukri |
+| 3 | **Manage Events** | **Core module.**<ul><li>Manages event creation including venue details.</li><li>Enforces capacity control.</li><li>Handles registration approval and rejection.</li><li>Auto-rejects new registrations when venue capacity is full.</li></ul> | Iqbal |
+| 4 | **Join Events** | <ul><li>Allows students to register for approved events.</li><li>Allows students to cancel registration before approval.</li></ul> | Shukri |
+| 5 | **Manage Attendance** | **Core module.**<ul><li>Handles student self-check-in.</li><li>Allows Chairperson verification.</li><li>Tracks attendance history for HEPA and Advisors.</li></ul> | Shukri |
+| 6 | **Manage Merits** | **Core module.**<ul><li>Calculates and assigns merit points based on criteria.</li><li>Viewable by students and Advisors.</li><li>Includes merit summary across all semesters.</li></ul> | Adly |
+
 ## Group Members
 
 | No. | Name | Matric No. |
@@ -42,4 +53,4 @@ Before you begin, ensure you have the following installed:
 ### Installation & Setup
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/yourusername/lecture.git](https://github.com/yourusername/lecture.git)
+   git clone [https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git](https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git)
