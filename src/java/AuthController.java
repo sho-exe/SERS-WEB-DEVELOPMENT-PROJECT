@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/auths")
-public class auths extends HttpServlet {
+public class AuthController extends HttpServlet {
 
     private UserDAO userDAO;
     private MeritDAO meritDAO;
