@@ -39,7 +39,7 @@ Before you begin, ensure you have the following installed:
 * [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/downloads/)
 * [Apache Tomcat](https://tomcat.apache.org/)
 * [MySQL Server](https://dev.mysql.com/downloads/mysql/)
-* Your preferred Java IDE (NetBeans, Eclipse, or IntelliJ IDEA)
+* Your preferred Java IDE (NetBeans, etc.)
 
 ## Installation & Setup
 Open your terminal and run the following commands:
