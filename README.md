@@ -46,7 +46,5 @@ Before you begin, ensure you have the following installed:
 Open your terminal and run the following commands:
 
 ```bash
-mkdir eventzone
-cd eventzone
 git clone https://github.com/sho-exe/eventzone-web.git
 cd eventzone-web
