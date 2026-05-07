@@ -1,4 +1,4 @@
-# EventZone
+# EventZone [EZ]
 
 <div align="justify">
 EventZone is a web-based application developed to streamline the management and registration of student events within the Computer Science and Mathematics Faculty. 
