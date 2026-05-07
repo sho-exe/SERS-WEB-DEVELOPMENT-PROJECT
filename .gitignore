@@ -8,9 +8,7 @@
 
 # 2. Build and output folders (Your IDE regenerates these)
 build/
-target/
 dist/
-out/
 
 # 3. Log files
 *.log
