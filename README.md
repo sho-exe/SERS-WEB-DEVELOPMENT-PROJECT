@@ -28,7 +28,6 @@ These inefficiencies are low student participation, ghost registrations where st
 | 3 | ADLY AZAMIN BIN AZMAN | S76094 |
 
 ## Features
-* **Event Management:** Streamlines registration, prevents overbooking, and tracks student participation.
 * **Backend:** Secure and efficient request handling using pure Java Servlets.
 * **Frontend:** Dynamic views rendered with JSP.
 * **Database:** Relational data management powered by MySQL.
