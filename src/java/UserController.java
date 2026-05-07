@@ -51,7 +51,7 @@ public class UserController extends HttpServlet {
             userDAO.updateUserRole(userId, newRole);
 
             // Redirect back to GET list
-            response.sendRedirect("auths?action=manage");
+            response.sendRedirect("users?action=manage");
         }
     }
 }
