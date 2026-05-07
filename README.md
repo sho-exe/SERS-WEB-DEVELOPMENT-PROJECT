@@ -46,11 +46,8 @@ Before you begin, ensure you have the following installed:
 Open your terminal and run the following commands:
 
 ```bash
-# 1. Create a new folder for the project
 mkdir eventzone
 
-# 2. Navigate into that folder
 cd eventzone
 
-# 3. Clone the repository
 git clone [https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git](https://github.com/sho-exe/SERS-WEB-DEVELOPMENT-PROJECT.git)
